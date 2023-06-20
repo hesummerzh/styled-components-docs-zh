@@ -3,8 +3,7 @@
 
 ## 动机<div id="Motivation"/>
 
-**styled-components 是作者对于如何增强 React 组件中 CSS 表现这个问题的思考结果**
-通过聚焦于单个用例,设法优化了开发者的体验和面向终端用户的输出.
+**styled-components是我们思考如何加强CSS在React组件系统中的造型的结果。通过专注于一个单一的用例，我们成功地优化了开发人员的体验以及终端用户的输出.
 
 除了提升开发者体验外, styled-components 同时提供以下特性:
 
