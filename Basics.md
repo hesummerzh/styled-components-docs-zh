@@ -3,9 +3,9 @@
 
 ## 动机<div id="Motivation"/>
 
-**styled-components是我们思考如何加强CSS在React组件系统中的造型的结果。通过专注于一个单一的用例，我们成功地优化了开发人员的体验以及终端用户的输出.
+styled-components是我们思考如何加强CSS在React组件系统中的造型的结果。通过专注于一个单一的用例，我们成功地优化了开发人员的体验以及终端用户的输出.
 
-除了提升开发者体验外, styled-components 同时提供以下特性:
+除了为开发者提供更好的体验外，风格化组件还提供：
 
 - **Automatic critical CSS:** styled-components 持续跟踪页面上渲染的组件,并向自动其注入且仅注入样式. 结合使用代码拆分, 可以实现仅加载所需的最少代码.
 - **解决了 class name 冲突:** styled-components 为样式生成唯一的 class name. 开发者不必再担心 class name 重复,覆盖和拼写错误的问题.
