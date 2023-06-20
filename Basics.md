@@ -162,7 +162,7 @@ render(
 );
 ```
 
-这也完美适用于自定义组件:
+这在自定义组件中也能完全正常工作:
 ```jsx
 const Button = styled.button`
   display: inline-block;
@@ -185,7 +185,7 @@ render(
 ```
 
 ## 给任何组件添加样式
-`styled`方法适用于任何最终向 DOM 元素传递 `className` 属性的组件,当然也包括第三方组件.
+`styled`方法在你自己的或任何第三方的组件上都能完美地工作，只要他们将传递的className道具附加到DOM元素上即可.
 > 注意
 >
 >在 react-native 中，请使用 style 而不是 className.
@@ -219,7 +219,7 @@ render(
 ## 属性传递
 如果添加样式的目标是 DOM 元素 (如`styled.div`), `styled-components `会传递已知的 HTML 属性给 DOM. 如果是一个自定义的 React 组件 (如`styled(MyComponent)`), `styled-components` 会传递全部 `props`.
 
-以下示例展示如何传递 Input 组件的 props 到已装载的 DOM 节点, as with React elements.
+以下示例展示Input组件的所有props是如何被传递到被安装的DOM节点的，就像React元素一样.
 
 ```jsx
 // 创建一个给<input>标签添加若干样式的 Input 组件 
@@ -241,11 +241,11 @@ render(
 );
 ```
 
-注意, `inputColor prop`并没有传递给 DOM, 但是`type`和`defaultValue` 都传递了. `styled-components`足够智能,会自动过滤掉所有非标准 attribute.
+注意, `inputColor prop`并没有被传递给 DOM, 但是`type`和`defaultValue` 都被传递了. `styled-components`足够智能,会自动过滤掉所有非标准 attribute.
 
 <div id="ComingfromCSS">
 
-## Coming from CSS
+## 来自CSS
 
 ### styled-components 如何在组件中工作?
 如果你熟悉在组件中导入 CSS(例如 CSSModules),那么下面的写法你一定不陌生:
@@ -311,7 +311,7 @@ export default class Counter extends React.Component {
 
 ### 在 render 方法之外定义 Styled Components 
 
-在 render 方法之外定义 styled component 很重要, 不然 styled component 会在每个渲染过程中重新创建. 这将阻止缓存生效并且大大降低了渲染速度,所以尽量避免这种情况.
+在渲染方法之外定义你的样式化组件是很重要的，否则它将在每一次的渲染过程中被重新创建。在渲染方法中定义样式化组件会阻碍缓存并大大降低渲染速度，因此应该避免这样做.
 
 推荐通过以下方式创建 styled components :
 ```jsx
@@ -339,6 +339,10 @@ const Wrapper = ({ message }) => {
 
 ### 伪元素,伪类选择器和嵌套
 `styled-component` 所使用的预处理器[stylis](https://github.com/thysultan/stylis.js)支持自动嵌套的 scss-like 语法,示例如下:
+
+我们使用的预处理器stylis支持类似scss的语法来自动嵌套样式。
+通过这种预处理，stylis支持一些高级选择器模式:
+
 ```jsx
 const Thing = styled.div`
   color: blue;
