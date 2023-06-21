@@ -34,11 +34,11 @@ render(
   </>
 )
 ```
-你可以在<u>入门部分</u>(https://styled-components.com/docs/basics#getting-started)看到这个方法的介绍
+你可以在[<u>入门部分</u>](https://styled-components.com/docs/basics#getting-started)看到这个方法的介绍
 
 `标签模板`
 
-这就是您传递给样式化调用的内容——带标记的模板文本。这是 ES6语言的一个特性。您可以在<u>“标记模板文字”</u>(https://styled-components.com/docs/advanced#tagged-template-literals)部分了解更多关于它们的信息
+这就是您传递给样式化调用的内容——带标记的模板文本。这是 ES6语言的一个特性。您可以在[<u>“标记模板文字”</u>](https://styled-components.com/docs/advanced#tagged-template-literals)部分了解更多关于它们的信息
 
 
 ----------------
