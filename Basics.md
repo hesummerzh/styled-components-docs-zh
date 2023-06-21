@@ -696,7 +696,7 @@ const RotatedBox = styled.View`
 
 >NOTE
 >
->v2 支持百分比. 为了实现这一目标,需要为所有简写强制指定单位. 如果要迁移到v2, [a codemod is available](https://github.com/styled-components/styled-components-native-code-mod).
+>在 v2中，我们支持百分比。为了做到这一点，我们需要强制所有速记单位。如果要迁移到 v2，可以使用一个[代码解码器](https://github.com/styled-components/styled-components-native-code-mod).
 
 ### Simpler usage with the metro bundler
-If you'd prefer to just import `styled-components` instead of `styled-components/native`, you can add a [resolverMainFields configuration](https://facebook.github.io/metro/docs/en/configuration.html#resolver-options) that includes "`react-native`". This used to be supported in metro by default (and currently does work in haul) but appears to have been removed at some point.
+如果您希望只导入`styled-components` 而不是 `styled-components/native`, 你可以添加一个包含`react-native`的[resolverMainFields configuration](https://facebook.github.io/metro/docs/en/configuration.html#resolver-options) . 默认情况下,曾经支持这个功能 (and currently does work in haul) 但是这个功能似乎已经被移除了.
