@@ -633,7 +633,7 @@ const Rotate = styled.div`
 >
 >`react-native`不支持 keyframes. 请参考[ReactNative.Animated API](https://stackoverflow.com/questions/50891046/rotate-an-svg-in-react-native/50891225#50891225).
 
-Keyframes are lazily injected when they're used, which is how they can be code-splitted, so you have to use the [`css helper` ](https://www.styled-components.com/docs/api#css)for shared style fragments:
+当使用`Keyframes`时，它们是惰性注入的，这就是它们如何被代码分割的，因此您必须使用[`css helper` ](https://www.styled-components.com/docs/api#css)来处理共享样式片段:
 
 ```jsx
 const rotate = keyframes``
@@ -650,7 +650,7 @@ const styles = css`
 ```
 >NOTE
 >
->This used to work in v3 and below where we didn't code-split keyframes. If you're upgrading from v3, make sure that all your shared style fragments are using the css helper!
+>这在 V3及以下版本中曾经有效，我们没有对`keyframes`进行代码分割。如果要从 v3升级，请确保所有共享样式片段都使用 `css helper`
 
 ## ReactNative
 `styled-components` 可以在 React-Native 中以同样的方式使用. 示例:[ Snack by Expo](https://snack.expo.io/@danielmschmidt/styled-components).
@@ -677,12 +677,12 @@ class MyReactNativeComponent extends React.Component {
 }
 ```
 
-同时也支持复杂样式 (like `transform`)和简写(如 `margin`) 感谢 [css-to-react-native](https://github.com/styled-components/css-to-react-native) !
+同时也支持复杂样式 (like `transform`)和简写(如 `margin`),它通常是一个数组和简写(例如,`margin`), 感谢 [css-to-react-native](https://github.com/styled-components/css-to-react-native) !
 >注意
 >
->`flex`的工作方式类似于 CSS 简写, 而不是 React Native 中的`flex`用法. 设置 `flex: 1` 则会设置 `flexShrink`为1.
+>请注意，flex 属性的工作方式类似于 CSS 简写，而不是 `React National` 中的遗留 `flex` 属性。设置 `flex: 1`设置 `flexShrink` 为1，除此之外，将 `flexGrow `设置为1，将 `flexBase` 设置为0
 
-Imagine how you'd write the property in React Native, guess how you'd transfer it to CSS, and you're probably right:
+想象一下你如何在React Native中写这个属性，猜想一下你如何把它转移到CSS中，你可能是对的:
 
 ```jsx
 const RotatedBox = styled.View`
@@ -692,8 +692,7 @@ const RotatedBox = styled.View`
   margin: 5px 7px 2px;
 `
 ```
-
-与 web-version 不同, React Native 不支持 `keyframes` 和 `createGlobalStyle` .使用媒体查询或是嵌套 CSS 也会报警.
+与 web 版本的一些不同之处在于，您不能使用`keyframes` 和 `createGlobalStyle`，因为 `React National` 不支持关键帧或全局样式。如果您使用媒体查询或嵌套 CSS，我们也会发出警告.
 
 >NOTE
 >
