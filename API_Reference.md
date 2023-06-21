@@ -36,7 +36,7 @@ render(
 ```
 你可以在[<u>入门部分</u>](https://styled-components.com/docs/basics#getting-started)看到这个方法的介绍
 
-`__标签模板__`
+`标签模板`
 
 这就是您传递给样式化调用的内容带标记的模板文本。这是 ES6语言的一个特性。您可以在[<u>“标记模板文字”</u>](https://styled-components.com/docs/advanced#tagged-template-literals)部分了解更多关于它们的信息.
 
@@ -71,7 +71,7 @@ render(
 ```
 你也可以直接从插值或输入对象中返回对象，它们将被视为内联样式。然而，这是很不可取的，因为CSS语法支持伪选择器、媒体查询、嵌套等，而对象语法则不支持.
 
-[**`风格化组件`**]
+`风格化组件`
 
 
 
