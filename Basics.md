@@ -427,7 +427,64 @@ render(
   </Thing>
 )
 ```
-最后,&可以用于增加组件的差异性;在处理混用 styled-components 和纯 CSS 导致的样式冲突时这将会非常有用:
+&& 指的是组件的一个实例; 如果您正在执行条件样式覆盖，并且不希望一个样式应用于某个特定组件的所有实例，那么这是非常有用的.
+```jsx
+const Input = styled.input.attrs({ type: "checkbox" })``;
+
+const Label = styled.label`
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+`
+
+const LabelText = styled.span`
+  ${(props) => {
+    switch (props.$mode) {
+      case "dark":
+        return css`
+          background-color: black;
+          color: white;
+          ${Input}:checked + && {
+            color: blue;
+          }
+        `;
+      default:
+        return css`
+          background-color: white;
+          color: black;
+          ${Input}:checked + && {
+            color: red;
+          }
+        `;
+    }
+  }}
+`;
+
+render(
+  <React.Fragment>
+    <Label>
+      <Input defaultChecked />
+      <LabelText>Foo</LabelText>
+    </Label>
+    <Label>
+      <Input />
+      <LabelText $mode="dark">Foo</LabelText>
+    </Label>
+    <Label>
+      <Input defaultChecked />
+      <LabelText>Foo</LabelText>
+    </Label>
+    <Label>
+      <Input defaultChecked />
+      <LabelText $mode="dark">Foo</LabelText>
+    </Label>
+  </React.Fragment>
+)
+
+```
+
+&& 单独的双引号有一个特殊的行为，叫做 "优先级提升"；如果你正在处理一个混合的风格化组件和普通的CSS环境，可能会有冲突的风格，这可能很有用:
 
 ```jsx
 const Thing = styled.div`
