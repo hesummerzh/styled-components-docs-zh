@@ -484,7 +484,7 @@ render(
 
 ```
 
-&& 单独的双引号有一个特殊的行为，叫做 "优先级提升"；如果你正在处理一个混合的风格化组件和普通的CSS环境，可能会有冲突的风格，这可能很有用:
+ 单独的&&有一个特殊的行为，叫做 "优先级提升"；如果你正在处理一个混合的风格化组件和普通的CSS环境，可能会有冲突的风格，这可能很有用:
 
 ```jsx
 const Thing = styled.div`
@@ -509,41 +509,103 @@ render(
 )
 ```
 
+如果你把选择器放进去而不加&符合，它们将指代组件的子代.
+
+```jsx
+const Thing = styled.div`
+  && {
+    color: blue;
+  }
+`
+
+const GlobalStyle = createGlobalStyle`
+  div${Thing} {
+    color: red;
+  }
+`
+
+render(
+  <React.Fragment>
+    <GlobalStyle />
+    <Thing>
+      I'm blue, da ba dee da ba daa
+    </Thing>
+  </React.Fragment>
+)
+```
+
+
 ## 附加额外的属性 (v2)
-为了避免仅为传递一些props来渲染组件或元素而使用不必要的wrapper, 可以使用 [`.attrs` constructor](https://www.styled-components.com/docs/api#attrs). 通过它可以添加额外的 props 或 attributes 到组件.
+为了避免不必要的包装器只是传递一些道具给渲染的组件或元素, 可以使用 [`.attrs` constructor](https://www.styled-components.com/docs/api#attrs)构造函数. 通过它可以添加额外的 props 或 attributes 到组件.
 
 举例来说,可以通过这种方式给元素添加静态 props,或者传递第三方 prop 给组件(比如传递`activeClassName`给 React Router 的 `Link`). 此外也可以将dynamic props 添加到组件. `.attrs` 对象也接收函数,返回值也将合并进 props.
 
-示例如下:
+在这里，我们渲染一个Input组件，并给它附加一些动态和静态属性:
 ```jsx
-const Input = styled.input.attrs({
-  //  static props
-  type: "password",
+const Input = styled.input.attrs(props => ({
+  // we can define static props
+  type: "text",
 
-  //  dynamic props
-  margin: props => props.size || "1em",
-  padding: props => props.size || "1em"
-})`
-  color: palevioletred;
+  // or we can define dynamic ones
+  $size: props.$size || "1em",
+}))<{ $size?: string; }>`
+  color: #BF4F74;
   font-size: 1em;
-  border: 2px solid palevioletred;
+  border: 2px solid #BF4F74;
   border-radius: 3px;
 
-  /* dynamically computed props */
-  margin: ${props => props.margin};
-  padding: ${props => props.padding};
+  /* here we use the dynamically computed prop */
+  margin: ${props => props.$size};
+  padding: ${props => props.$size};
 `;
 
 render(
   <div>
-    <Input placeholder="A small text input" size="1em" />
+    <Input placeholder="A small text input" />
     <br />
-    <Input placeholder="A bigger text input" size="2em" />
+    <Input placeholder="A bigger text input" $size="2em" />
   </div>
 );
 ```
+如您所见，我们可以访问插值中新创建的props，type 属性被传递给元素.
 
-正如所见,我们可以在插值中访问新创建的 props,type attribute也正确的传递给了元素.
+## 覆写.attrs
+
+请注意，当包装样式化组件时,`.attrs`从最内层的样式化组件应用到最外层的样式化组件
+
+这允许每个包装器覆盖对`.attrs`的嵌套使用，类似于样式表中后来定义的css属性覆盖之前的声明一样。
+
+`Input`的`.attrs`首先被应用，然后是`PasswordInput`的`.attrs`
+
+```jsx
+const Input = styled.input.attrs(props => ({
+  type: "text",
+  $size: props.$size || "1em",
+})<{ $size?: string; }>`
+  border: 2px solid #BF4F74;
+  margin: ${props => props.$size};
+  padding: ${props => props.$size};
+`;
+
+// Input's attrs will be applied first, and then this attrs obj
+const PasswordInput = styled(Input).attrs({
+  type: "password",
+})`
+  // similarly, border will override Input's border
+  border: 2px solid aqua;
+`;
+
+render(
+  <div>
+    <Input placeholder="A bigger text input" size="2em" />
+    <br />
+    {/* Notice we can still use the size attr from Input */}
+    <PasswordInput placeholder="A bigger password input" size="2em" />
+  </div>
+);
+
+```
+这就是为什么`PasswordInput`是一个密码类型，但仍然使用`Input`的大小属性
 
 ## 动画
 虽然使用`@keyframes`的 CSS 动画不限于单个组件,但我们仍希望它们不是全局的(以避免冲突). 这就是为什么 styled-components 导出 `keyframes helper` 的原因: 它将生成一个可以在 APP 应用的唯一实例:
