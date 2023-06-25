@@ -207,6 +207,13 @@ import styled from 'styled-components/macro'
 ```
 
 **使用TypeScript**
+为了防止任意元素的`css`prop出现TypeScript错误，请安装`@types/styled-components`，并在你的项目中添加以下导入内容一次:
+```jsx
+import {} from 'styled-components/cssprop'
+```
+参考 (https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31245#issuecomment-446011384 ) 获取更多信息
+
+
 
 
 ----------------
