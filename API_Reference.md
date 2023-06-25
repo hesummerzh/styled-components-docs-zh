@@ -125,6 +125,29 @@ render(
 
 要注意的是，`shouldForwardProp` 函数可以用于过滤不希望传递给底层组件的属性，但在这个特定示例中，它并没有影响最终的渲染结果。真正影响渲染结果的是定义的样式和添加的属性（通过 `.attrs` 方法）。
 
+> 可选地，`shouldForwardProp` 可以接受第二个参数，该参数提供对默认验证器函数的访问。该函数可以用作备用选项，并且它也像谓词一样工作，基于已知的 HTML 属性进行过滤。
+
+**`ThemeProvider`**
+
+一个用于主题设计的辅助组件。通过上下文API，将主题注入到组件树中它下面的所有样式的组件中。查看[<u>主题设计<u/>](https://styled-components.com/docs/advanced#theming)部分。
+|  props   | 描述  | 
+| :---:  | :---: | 
+| `theme`  | 一个对象，它将作为主题被注入到提供者下面的风格化组件的所有插值中 |
+
+```jsx
+// import styled, { ThemeProvider } from 'styled-components'
+
+const Box = styled.div`
+  color: ${props => props.theme.color};
+`
+
+render(
+  <ThemeProvider theme={{ color: 'mediumseagreen' }}>
+    <Box>I'm mediumseagreen!</Box>
+  </ThemeProvider>
+)
+```
+
 
 
 ----------------
