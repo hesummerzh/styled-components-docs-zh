@@ -89,7 +89,7 @@ render(
 
 返回另一个`风格化组件`
 
-``jsx
+```jsx
 // import styled from 'styled-components'
 
 const Input = styled.input.attrs(props => ({
