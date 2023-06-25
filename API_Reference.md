@@ -120,6 +120,25 @@ render(
 
 `"as"` 多态 prop
 
+如果您希望保留所有样式应用到组件，但只是切换最终呈现的内容(不管是不同的 HTML 标记还是不同的自定义组件) ，那么您可以在运行时使用`“ as”`道具来实现这一点
+
+```jsx
+// import styled from "styled-components";
+
+const Component = styled.div`
+  color: red;
+`;
+
+render(
+  <Component
+    as="button"
+    onClick={() => alert('It works!')}
+  >
+    Hello World!
+  </Component>
+)
+
+```
 
 
 
