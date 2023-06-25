@@ -268,6 +268,104 @@ const GlobalStyle = createGlobalStyle<{ $whiteColor?: boolean; }>`
 </ThemeProvider>
 ```
 
+**`css`**
+
+一个辅助函数，用于从一个带有插值的模板字头中生成CSS。如果你返回一个带有插值功能的模板字，因为在JavaScript中标签模板字的工作方式,你需要使用这个函数.
+
+如果你插值的是一个字符串，你不需要使用这个，只有当你插值的是一个函数时才需要使用这个。
+
+|  参数   | 描述  | 
+| :---:  | :---: | 
+| 标记模板  | 一个带有你的CSS和插值的标记的模板文字。|
+
+Returns an array of interpolations, which is a flattened data structure that you can pass as an interpolation itself.
+返回一个插值数组，它是一个扁平化的数据结构，你可以把它作为插值本身来传递。
+
+```jsx
+import styled, { css } from 'styled-components'
+
+
+interface ComponentProps {
+  $complex?: boolean;
+  $whiteColor?: boolean;
+}
+
+
+const complexMixin = css<ComponentProps>`
+  color: ${props => (props.$whiteColor ? 'white' : 'black')};
+`
+
+
+const StyledComp = styled.div<ComponentProps>`
+  /* This is an example of a nested interpolation */
+  ${props => (props.$complex ? complexMixin : 'color: blue;')};
+`
+```
+如果你不写css，你的函数就会变成`toString()`，你就不会得到你所期望的结果。
+
+**`keyframes`**
+一个为动画创建关键帧的辅助方法
+|  参数   | 描述  | 
+| :---:  | :---: | 
+| 标记模板  | 一个有标签的模板字面，里面有你的关键帧|
+
+返回一个`keyframes`模型，在你的动画声明中使用。如果你想获得生成的动画名称，你可以在返回的模型上使用`getName()`API。
+
+>NOTE
+>在styled-components v3及以下版本中，`keyframes`帮助器直接返回动画名称，而不是用`getName`方法返回一个对象。
+
+```jsx
+import styled, { keyframes } from 'styled-components'
+
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
+
+const FadeInButton = styled.button`
+  animation: 1s ${fadeIn} ease-out;
+`
+```
+
+如果你把你的风格规则组成一个局部，确保使用`css`帮助器。
+
+```jsx
+import styled, { css, keyframes } from 'styled-components'
+
+
+interface AnimationProps {
+  $animationLength: number;
+}
+
+
+const pulse = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
+
+const animation = props =>
+  css<AnimationProps>`
+    ${pulse} ${props.$animationLength} infinite alternate;
+  `
+
+
+const PulseButton = styled.button<AnimationProps>`
+  animation: ${animation};
+`
+```
+你可以在[<u>动画<u/>](https://styled-components.com/docs/basics#animations)部分了解更多关于使用风格化组件的动画的信息。
+
 
 
 
