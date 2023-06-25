@@ -147,7 +147,66 @@ render(
   </ThemeProvider>
 )
 ```
+**`CSS` prop**  `v4`
 
+有时你不想为了应用一点样式而创建一个额外的组件。`css` prop是一种方便的方式，可以在你的组件上进行迭代，而不需要解决固定的组件边界。它既适用于普通的HTML标签，也适用于组件，并支持任何风格化组件所支持的一切，包括基于prop、主题和自定义组件的适应。
+
+>NOTE
+>要启用对`css`道具的支持，你必须使用[<u>Babel插件<u/>](https://styled-components.com/docs/tooling#babel-plugin)
+
+```jsx
+<div
+  css={`
+    background: papayawhip;
+    color: ${props => props.theme.colors.text};
+  `}
+/>
+<Button
+  css="padding: 0.5em 1em;"
+/>
+```
+
+在css引擎下，Babel插件将任何带有`css`道具的元素变成一个样式化的组件。例如，上面的代码变成:
+```jsx
+import styled from 'styled-components';
+
+
+const StyledDiv = styled.div`
+  background: papayawhip;
+  color: ${props => props.theme.colors.text};
+`
+
+
+const StyledButton = styled(Button)`
+  padding: 0.5em 1em;
+`
+
+
+<StyledDiv />
+<StyledButton />
+```
+请注意，你甚至不需要添加导入，Babel插件会自动完成！（除非使用Babel macro，见下文）！
+
+**使用Babel macro**
+
+你可以在`create-react-app`中使用[<u>Babel macro<u/>](https://styled-components.com/docs/tooling#babel-macro)来实现这个功能。不幸的是，Babel macro 只在导入时运行，所以**导入不能自动添加**。如果你手动添加导入到macro中，上面的代码可以完美地工作:
+
+```jsx
+import styled from 'styled-components/macro'
+
+
+<div
+  css={`
+    background: papayawhip;
+    color: ${props => props.theme.colors.text};
+  `}
+/>
+<Button
+  css="padding: 0.5em 1em;"
+/>
+```
+
+**使用TypeScript**
 
 
 ----------------
