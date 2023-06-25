@@ -214,6 +214,62 @@ import {} from 'styled-components/cssprop'
 参考 (https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31245#issuecomment-446011384 ) 获取更多信息
 
 
+## Helpers
+**`createGlobalStyle`** `v4`
+一个辅助函数，用于生成一个特殊的`StyledComponent`，处理全局样式。通常情况下，有样式的组件会被自动地划分到一个本地的CSS类，因此与其他组件隔离。在`createGlobalStyle`的情况下，这个限制被移除，像CSS重置或基本样式表的东西可以被应用。
+
+|  参数   | 描述  | 
+| :---:  | :---: | 
+| 标记模板  | 一个带有你的CSS和插值的标记的模板文字。|
+
+返回一个不接受子代的`StyledComponent`。把它放在React树的顶端，全局样式将在组件被 "渲染 "时被注入。
+
+```jsx
+import { createGlobalStyle } from 'styled-components'
+
+
+const GlobalStyle = createGlobalStyle<{ $whiteColor?: boolean; }>`
+  body {
+    color: ${props => (props.$whiteColor ? 'white' : 'black')};
+  }
+`
+
+
+// later in your app
+
+
+<React.Fragment>
+  <GlobalStyle $whiteColor />
+  <Navigation /> {/* example of other top-level stuff */}
+</React.Fragment>
+```
+由于`GlobalStyle`组件是一个风格化的组件，意味着如果提供的话它也可以从[<u>`<ThemeProvider>`<u/>](https://styled-components.com/docs/api#themeprovider)组件获得主题
+
+```jsx
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+
+
+const GlobalStyle = createGlobalStyle<{ $whiteColor?: boolean; }>`
+  body {
+    color: ${props => (props.$whiteColor ? 'white' : 'black')};
+    font-family: ${props => props.theme.fontFamily};
+  }
+`
+
+
+// later in your app
+
+
+<ThemeProvider theme={{ fontFamily: 'Helvetica Neue' }}>
+  <React.Fragment>
+    <Navigation /> {/* example of other top-level stuff */}
+    <GlobalStyle $whiteColor />
+  </React.Fragment>
+</ThemeProvider>
+```
+
+
+
 
 
 ----------------
