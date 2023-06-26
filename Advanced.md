@@ -132,7 +132,7 @@ render(
 ```
 
 ## Refs
-通过传递`ref prop`给 styled component 将获得:
+通过传递`ref prop`给 styled component 将获得以下两种结果之一:
 - 底层 DOM 节点 (如果 styled 的对象是基本元素如 div)
 - React 组件实例 (如果 styled 的对象是 React Component)
 ```jsx
