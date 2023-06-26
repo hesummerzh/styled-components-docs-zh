@@ -178,7 +178,7 @@ const Comp = styled('div').withConfig({
   shouldForwardProp: (prop) =>
       !['hidden'].includes(prop),
 }).attrs({ className: 'foo' })`
-  color: red;
+  color: ${props => props.hidden ? "white" : "#BF4F74"};
   &.foo {
     text-decoration: underline;
   }
