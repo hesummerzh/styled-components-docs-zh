@@ -1,5 +1,78 @@
 # API参考
 ## **主要的**
+**`styled`**
+
+这是默认的输出。这是一个底层工厂，我们用来创建styled.tagname辅助方法。
+|  参数   | 描述  | 
+| :---:  | :---: | 
+| `component` / `tagname`  | 要么是一个有效的反应组件，要么是一个像 `"div "`这样的tagname |
+返回一个函数，该函数接受一个标记的模板字面，并将其变成一个`StyledComponent`。
+```jsx
+// import styled from 'styled-components'
+
+const Button = styled.button`
+  background: #BF4F74;
+  border-radius: 3px;
+  border: none;
+  color: white;
+`
+
+const TomatoButton = styled(Button)`
+  background: tomato;
+`
+
+render(
+  <>
+    <Button>I'm purple.</Button>
+    <br />
+    <TomatoButton>I'm red.</TomatoButton>
+  </>
+)
+```
+你可以在[入门部分](https://styled-components.com/docs/basics#getting-started)看到这个方法的介绍。
+
+**`TaggedTemplateLiteral`**
+这是你传递给你的风格化调用的东西--一个有标签的模板字面。这是一个ES6语言特性。你可以在 ["标签模板字面 "](https://styled-components.com/docs/advanced#tagged-template-literals)部分了解更多关于它们的信息。
+
+|  输入   | 描述  | 
+| :---:  | :---: | 
+| `Rule`  | 任何CSS规则（字符串） |
+| `内插法`  | 可以是一个字符串，也可以是一个函数。字符串是按原样与规则结合的。函数将接收风格化组件的道具作为第一个也是唯一的参数 |
+
+阅读更多关于如何根据prop调整style的信息，请参见根据[prop调整style](https://styled-components.com/docs/basics#adapting-based-on-props)部分。
+
+传入插值函数的属性会被附加一个特殊的属性，即`主题`，它是由更高级别的`ThemeProvider`组件注入的。请查看[主题部分](https://styled-components.com/docs/advanced#theming)以了解更多相关信息。
+
+```jsx
+// import styled from 'styled-components'
+
+const padding = '3em'
+
+const Section = styled.section<{ $background?: string; }>`
+  color: white;
+
+  /* Pass variables as inputs */
+  padding: ${padding};
+
+  /* Adjust the background from the properties */
+  background: ${props => props.$background};
+`
+
+render(
+  <Section $background="royalblue">
+    ✨ Magic
+  </Section>
+)
+```
+你也可以直接从插值或输入对象中返回对象，它们将被视为内联样式。然而，这是很不可取的，因为CSS语法支持伪选择器、媒体查询、嵌套等，而对象语法则不支持。
+
+**`StyledComponent`**
+
+一个有风格的React组件。当你调用`styled.tagname`或`styled(Component)`的样式时，这将返回。
+
+这个组件可以接受任何道具。如果它是一个有效的属性，它会把它传给HTML节点，否则它只把它传给插值函数。([见标签模板字面](https://styled-components.com/docs/advanced#tagged-template-literals))
+
+你可以毫无问题地将一个任意的类名传递给一个风格化组件，它将被应用在风格化调用所定义的样式旁边。(例如：`<MyStyledComp className="bootstrap__btn" />`)
 
 **.attrs** 
 
