@@ -6,7 +6,6 @@
 |  参数   | 描述  | 
 | :---:  | :---: | 
 | `component` / `tagname`  | 要么是一个有效的反应组件，要么是一个像 `"div "`这样的tagname |
-返回一个函数，该函数接受一个标记的模板字面，并将其变成一个`StyledComponent`。
 ```jsx
 // import styled from 'styled-components'
 
