@@ -190,13 +190,13 @@ const ArbitraryComponent = styled.div`
 
 There is an upcoming standard to sanitize CSS from JavaScript有一个即将推出的标准,可以用于无害化 JavaScript 中的 CSS, [`CSS.escape`](https://developer.mozilla.org/en-US/docs/Web/API/CSS/escape). 这个标准还没有被浏览器很好的支持,因此建议使用 [`polyfill by Mathias Bynens`](https://github.com/mathiasbynens/CSS.escape) .
 
-## Existing CSS
+## 现有的CSS
 如果想将 styled-components 和现有的 CSS 共同使用,有很多实现的细节必须注意到.
 
-styled-components 通过类生成实际的样式表,并通过`className prop`将这些类附加到响应的 DOM 节点. 运行时它会被注入到 document 的 head 末尾.
+styled-components 生成一个带有类的实际样式表,并通过`className`属性将这些类附加到响应的 DOM 节点. 它在运行时将生成的样式表注入到文档头部的末尾.
 
-### Styling normal React components
-使用`styled(MyComponent)` 声明,  `MyComponent` 却不接收传入的 `className` prop, 则样式并不会被呈现. 为避免这个问题,请确保组件接收 `className` 并传递给 DOM 节点:
+### Styling normal React components  普通React组件的样式
+使用`styled(MyComponent)` 声明,  `MyComponent` 却不接收传入的 `className` prop, 则样式并不会被呈现. 为避免这个问题,请确保组件接收的`className` 附加到DOM 节点:
 ```jsx
 class MyComponent extends React.Component {
   render() {
@@ -205,7 +205,7 @@ class MyComponent extends React.Component {
   }
 }
 ```
-对于已存在类名的组件,可以将其余传入的类合并:
+如果已经存在带有类的样式，则可以将全局类与传入的样式组合在一起:
 ```jsx
 class MyComponent extends React.Component {
   render() {
