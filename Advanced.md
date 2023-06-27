@@ -214,9 +214,9 @@ class MyComponent extends React.Component {
   }
 }
 ```
-
-### Issues with specificity
-将`styled-components`类与全局类混用,可能会导致出乎意料的结果.如果一个`property`在两个类中被定义且两个类的优先级相同,则后者会覆盖前者.
+ 
+### Issues with specificity  特殊性问题 
+如果将`styled-components`类与全局类混用,可能会导致出乎意料的结果.如果一个属性在两个类中被定义,且两个类的优先级相同,则后者会覆盖前者.
 ```jsx
 // MyComponent.js
 const MyComponent = styled.div`background-color: green;`;
@@ -230,9 +230,10 @@ const MyComponent = styled.div`background-color: green;`;
 // even though you're trying to override it with the "red-bg" class!
 <MyComponent className="red-bg" />
 ```
-上述例子中`styled-components`类的样式覆盖了全局类,因为`styled-components`在运行时向`<head>`末尾注入样式.
+在上面的示例中，样式化组件类优先于全局类，因为样式化组件默认在运行时在`<head>`末尾注入其样式。因此，它的样式胜过其他单一类名选择器。
 
-一种解决方式是提高全局样式的优先级:
+一种解决方式是提高样式表中选择器的优先级:
+
 ```jsx
 /* my-component.css */
 .red-bg.red-bg {
@@ -241,23 +242,27 @@ const MyComponent = styled.div`background-color: green;`;
 ```
 
 ### 避免与第三方样式和脚本的冲突
-如果在一个不能完全控制的页面上部署`styled-components`,可能需要采取措施确保 component styles 不与 host page 上其他样式冲突.
+如果在一个不能完全控制的页面上部署`styled-components`,可能需要采取措施确保组件样式不与主页上其他样式冲突.
 
-常见的问题是优先级相同,例如 host page 上持有如下样式:
+最常见的问题是优先级不够。例如，考虑具有以下样式规则的主页：
 ```jsx
 body.my-body button {
   padding: 24px;
 }
 ```
-因为其包含一个类名和两个标签名,它的优先级要高于 styled component 生成的一个类名的选择器:
+由于该规则包含一个类名和两个标记名，因此它比这个样式化组件生成的单个类名选择器具有更高的优先级:
+
 ```jsx
 styled.button`
   padding: 16px;
 `
 ```
-没有让 styled component 完全不受 host page 样式影响的办法.但是可以通过[`babel-plugin-styled-components-css-namespace`](https://github.com/QuickBase/babel-plugin-styled-components-css-namespace)来提高样式的优先级, 通过它可以为 styled components 的类指定一个命名空间. 一个好的命名空间,譬如`#my-widget`,可以实现styled-components 在 一个 `id="my-widget"`的容器中渲染, 因为 id 选择器的优先级总是高于类选择器.
+没有办法让你的组件完全不受主页样式影响.但是可以通过[`babel-plugin-styled-components-css-namespace`](https://github.com/QuickBase/babel-plugin-styled-components-css-namespace)来提高样式规则的特异性, 通过它可以为 styled components 的类指定一个命名空间. 一个好的命名空间,譬如`#my-widget`,可以实现styled-components在一个`id="my-widget"`的容器中渲染, 因为id选择器的优先级总是高于类选择器.
 
-一个罕见的问题是同一页面上两个`styled-components`实例的冲突.通过在 code bundle 中定义 `process.env.SC_ATTR` 可以避免这个问题. 它将覆盖 `<style> `标签的`data-styled`属性,  (v3 及以下版本使用 `data-styled-components`), allowing each styled-components instance to recognize its own tags.
+一个罕见的问题是同一页面上两个样式组件实例之前的冲突.您可以通过在带有组件实例的代码包中定义 `process.env.SC_ATTR` 避免这个问题. 它将覆盖 `<style> `标签的`data-styled`属性,  (v3 及以下版本使用 `data-styled-components`), allowing each styled-components instance to recognize its own tags.
+
+`选择器优先级`
+标签选择器 < 类选择器 < id选择器 < 行内样式 < !important
 
 ## 媒体模板
 开发响应式 web app 时媒体查询是不可或缺的工具.
