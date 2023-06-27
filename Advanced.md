@@ -259,7 +259,7 @@ styled.button`
 ```
 没有办法让你的组件完全不受主页样式影响.但是可以通过[`babel-plugin-styled-components-css-namespace`](https://github.com/QuickBase/babel-plugin-styled-components-css-namespace)来提高样式规则的特异性, 通过它可以为 styled components 的类指定一个命名空间. 一个好的命名空间,譬如`#my-widget`,可以实现styled-components在一个`id="my-widget"`的容器中渲染, 因为id选择器的优先级总是高于类选择器.
 
-一个罕见的问题是同一页面上两个样式组件实例之前的冲突.您可以通过在带有组件实例的代码包中定义 `process.env.SC_ATTR` 避免这个问题. 它将覆盖 `<style> `标签的`data-styled`属性,  (v3 及以下版本使用 `data-styled-components`), allowing each styled-components instance to recognize its own tags.
+一个罕见的问题是同一页面上两个样式组件实例之前的冲突.您可以通过在带有组件实例的代码包中定义 `process.env.SC_ATTR` 避免这个问题. 它将覆盖默认的 `<style> `标签的`data-styled`属性,  (v3 及以下版本使用 `data-styled-components`), 允许每个风格化的组件实例识别自己的标签.
 
 `选择器优先级`
 标签选择器 < 类选择器 < id选择器 < 行内样式 < !important
@@ -321,7 +321,7 @@ render(
 ```
 
 ## 标记模板字符串
-模板字符串是 ES6 的新功能.它允许我们自定义字符串插值规则--styled components 正是基于此功能实现.
+模板字符串是 ES6 的新功能.它允许我们自定义字符串插值规则--这就是我们创建样式组件的方式.
 
 如果没有传递插值,则函数接收的一个参数是包含一个字符串的数组:
 ```jsx
@@ -329,7 +329,7 @@ render(
 fn`some string here`
 fn(['some string here'])
 ```
-如果传递了插值,则数组中包含了传递的字符串, split at the positions of the interpolations.其余参数将按顺序进行插值.
+如果传递了插值,则数组中包含了传递的字符串, 并在插值的位置处拆分。其余参数将按顺序进行插值.
 
 ```jsx
 const aVar = 'good'
