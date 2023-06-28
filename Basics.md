@@ -20,7 +20,11 @@ styled-components是我们思考如何加强CSS在React组件系统中的造型�
 
 从 npm 安装 styled-components :
 ```
-npm install --save styled-components
+# with npm
+npm install styled-components
+
+# with yarn
+yarn add styled-components
 ```
 
 >强烈推荐使用 styled-components 的 [babel 插件](https://www.styled-components.com/docs/tooling#babel-plugin) (当然这不是必须的).它提供了许多益处,比如更清晰的类名,SSR 兼容性,更小的包等等.
