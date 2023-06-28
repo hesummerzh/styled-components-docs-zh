@@ -340,16 +340,29 @@ fn(['this is a ', ' day'], aVar)
 ```
 这用起来有点笨重,但是这意味着我们可以在 styled components 中接收变量,函数或是 mixins ,并且可以将它们转换成纯 CSS.
 
+说到这里，在展开过程中，样式化组件会忽略计算结果为未定义、 null、 false 或空字符串(“”)的内插，这意味着您可以自由地使用[短路求值](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation)来有条件地添加 CSS 规则
+```jsx
+
+const Title = styled.h1<{ $upsideDown?: boolean; }>`
+  /* Text centering won't break if props.$upsideDown is falsy */
+  ${props => props.$upsideDown && 'transform: rotate(180deg);'}
+  text-align: center;
+`;
+
+```
+
 想了解有关标记模板字符串的更多信息, 请参阅 Max Stoiber 的文章: [The magic behind 💅 styled-components](https://mxstbr.blog/2016/11/styled-components-magic-explained/)
 
 ## 服务端渲染
 
-styled-components 通过样式注水(with stylesheet rehydration)支持并发服务端渲染. 其核心思想是,每当在服务器上渲染应用时, 为 React 树创建一个`ServerStyleSheet` 和一个 `provider` ,通过 context API 来接收样式. 
+styled-components 通过样式注水(with stylesheet rehydration)支持并发服务端渲染. 其核心思想是,每次在服务器上渲染应用时, 为React树创建一个`ServerStyleSheet` 和一个 `provider` ,
+
+通过 context API 来接收样式. 
 
 这不会影响全局样式,例如 `keyframes` 或者 `createGlobalStyle` ,并且允 styled-components 与 React DOM 的 SSR API 共同使用.
 
-### 设置
-为了可靠的执行 SSR,正确的生成客户端 bundle,请使用 [babel plugin](https://www.styled-components.com/docs/tooling#babel-plugin). 
+### 工具设置
+为了可靠地执行服务器端渲染并让客户端包顺利获取，您需要使用我们的[babel plugin](https://www.styled-components.com/docs/tooling#babel-plugin). 
 它通过为每个 styled component 添加确定的 ID 来防止校验错误. 更多信息请参考 [tooling documentation](https://www.styled-components.com/docs/tooling#serverside-rendering) .
 
 对于 TypeScript 用户, TS 大师 Igor Oleinikov 整合了webpack ts-loader / awesome-typescript-loader 工具链 [TypeScript plugin](https://www.styled-components.com/docs/tooling#typescript-plugin)  来完成类似的任务.
