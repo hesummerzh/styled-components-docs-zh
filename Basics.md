@@ -52,6 +52,7 @@ const Component = window.styled.div`
 以下的例子创建了两个简单的附加了样式的组件, 一个`Wrapper`和一个`Title`:
 
 ```jsx
+import styled from 'styled-components'
 // 创建一个 Title 组件,它将渲染一个附加了样式的 <h1> 标签
 const Title = styled.h1`
   font-size: 1.5em;
