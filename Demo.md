@@ -3,7 +3,7 @@
 
 1. ## 如何使用媒体查询@media实现响应式布局
 
- + 1.1 在 styled-components 中，你可以使用 `css` 函数结合 `@media` 媒体查询来实现响应式布局。下面是一个示例代码，展示了如何在 styled-components 中使用媒体查询：
+ + 在 styled-components 中，你可以使用 `css` 函数结合 `@media` 媒体查询来实现响应式布局。下面是一个示例代码，展示了如何在 styled-components 中使用媒体查询：
 
    ```jsx
    import styled, { css } from 'styled-components';
@@ -37,7 +37,7 @@
   
    你可以根据自己的需求，在媒体查询中设置不同的样式规则，以实现响应式布局。
  
-+ 1.2 在styled-components中，你可以使用媒体查询（`@media`）来实现响应式布局。styled-components提供了`css`辅助函数，它允许你在样式中使用媒体查询。
++  在styled-components中，你可以使用媒体查询（`@media`）来实现响应式布局。styled-components提供了`css`辅助函数，它允许你在样式中使用媒体查询。
 
   以下是使用媒体查询实现响应式布局的示例：
 
@@ -73,7 +73,8 @@
   在使用`Container`组件时，我们通过向`media`属性传递一个真值来触发响应式布局样式的应用。这样，当屏幕宽度小于等于768px时，容器的宽度将变为50%。
   
   通过这种方式，你可以根据不同的屏幕尺寸应用不同的样式，并实现响应式布局。
-+ 1.3 在 styled-components 中，你可以使用 `css` 功能来应用媒体查询 `@media` 来实现响应式布局。以下是一个示例：
+  
++ 在 styled-components 中，你可以使用 `css` 功能来应用媒体查询 `@media` 来实现响应式布局。以下是一个示例：
 
     ```jsx
     import styled, { css } from 'styled-components';
