@@ -1,7 +1,7 @@
 
 # style-commponments 案例
 
-一. ## 如何使用媒体查询@media实现响应式布局
+1. ## 如何使用媒体查询@media实现响应式布局
 
  + 1.1 在 styled-components 中，你可以使用 `css` 函数结合 `@media` 媒体查询来实现响应式布局。下面是一个示例代码，展示了如何在 styled-components 中使用媒体查询：
 
